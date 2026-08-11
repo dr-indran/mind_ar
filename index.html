@@ -1,115 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html>
 
 <head>
-    <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
 
-    <title>AR Video Demonstration</title>
+<meta name="viewport"
+     content="width=device-width, initial-scale=1.0">
 
-    <!-- A-Frame -->
-    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <title>MindAR Image Target with Video</title>
 
-    <!-- MindAR -->
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
+  <!-- A-Frame -->
+
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+
+  <!-- MindAR -->
+
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
 </head>
 
 <body>
 
 <a-scene
-    mindar-image="imageTargetSrc: ./targets.mind;"
-    color-space="sRGB"
-    renderer="colorManagement: true"
-    vr-mode-ui="enabled: false"
-    device-orientation-permission-ui="enabled: false">
+ mindar-image="imageTargetSrc: ./targets.mind;"
+ vr-mode-ui="enabled: false"
+ device-orientation-permission-ui="enabled: false">
 
-    <!-- ========================= -->
-    <!-- VIDEO FILE -->
-    <!-- ========================= -->
+  <!-- Camera -->
 
-    <a-assets>
+<a-camera
+   position="0 0 0"
+   look-controls="enabled: false"> </a-camera>
 
-        <video
-            id="myVideo"
-            src="./vid_1111.mov"
-            preload="auto"
-            loop
-            muted
-            playsinline
-            webkit-playsinline>
-        </video>
+  <!-- Target Image -->
 
-    </a-assets>
+  <a-entity mindar-image-target="targetIndex: 0">
 
+```
+<!-- Video -->
+<a-video
+    src="#myVideo"
+    position="0 0 0"
+    width="1"
+    height="0.5625"
+    autoplay="true"
+    loop="true"
+    playsinline="true">
+</a-video>
+```
 
-    <!-- ========================= -->
-    <!-- CAMERA -->
-    <!-- ========================= -->
-
-    <a-camera
-        position="0 0 0"
-        look-controls="enabled: false">
-    </a-camera>
-
-
-    <!-- ========================= -->
-    <!-- TARGET IMAGE -->
-    <!-- ========================= -->
-
-    <a-entity
-        mindar-image-target="targetIndex: 0">
-
-        <!-- Video displayed on target -->
-        <a-video
-            src="#myVideo"
-            width="1.6"
-            height="0.9"
-            position="0 0 0">
-        </a-video>
-
-    </a-entity>
+  </a-entity>
 
 </a-scene>
 
+<!-- Video file -->
 
-<!-- ========================= -->
-<!-- JAVASCRIPT -->
-<!-- ========================= -->
-
-<script>
-
-    const target = document.querySelector(
-        '[mindar-image-target]'
-    );
-
-    const video = document.querySelector(
-        '#myVideo'
-    );
-
-
-    // Target detected
-    target.addEventListener('targetFound', () => {
-
-        console.log("Target image detected");
-
-        video.play();
-
-    });
-
-
-    // Target lost
-    target.addEventListener('targetLost', () => {
-
-        console.log("Target image lost");
-
-        video.pause();
-
-    });
-
-</script>
+<video
+ id="myVideo"
+ src="./Dhoni.mp4"
+ autoplay
+ loop
+ muted
+ playsinline
+ webkit-playsinline> </video>
 
 </body>
+
 </html>
